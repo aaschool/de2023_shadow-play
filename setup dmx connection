@@ -1,0 +1,43 @@
+npm install dmx
+
+const DMX = require('dmx');
+const dmx = new DMX();
+
+// Initialize the DMX connection
+const universe = dmx.addUniverse('myUniverse', 'enttec-usb-dmx-pro', 'Port_0003.Hub_#0002');
+
+// Define fixtures and their channels
+const fixtures = {
+  1: {
+    channels: {
+      red: 1,
+      green: 2,
+      blue: 3
+    }
+  },
+  2: {
+    channels: {
+      intensity: 4
+    }
+  },
+  3: {
+    channels: {
+      intensity: 5
+    }
+  }
+};
+
+// Function to set DMX channel values for a fixture
+function setFixtureValues(fixtureId, values) {
+  const fixture = fixtures[fixtureId];
+  const channels = fixture.channels;
+  for (const [key, value] of Object.entries(values)) {
+    const channel = channels[key];
+    universe.update(fixtureId, {[channel]: value});
+  }
+}
+
+// Example usage
+setFixtureValues(1, {red: 255, green: 0, blue: 0}); // Set fixture 1 to red
+setFixtureValues(2, {intensity: 100}); // Set fixture 2 to full intensity
+setFixtureValues(3, {intensity:50}); // Set fixture 3 to half intensity
