@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>DMX Light Control</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dmx/dist/dmx.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-knob/1.2.13/jquery.knob.min.js"></script>
+  </head>
+  <body>
+    <h1>DMX Light Control</h1>
+
+    <!-- Define the light controls -->
+    <div>
+      <label for="light1-intensity">Light 1 Intensity:</label>
+      <input type="range" id="light1-intensity" min="0" max="255" value="0">
+    </div>
+    <br>
+    <div>
+      <button id="light1-on">Light 1 On</button>
+      <button id="light1-off">Light 1 Off</button>
+      <label for="light1-rotate">Rotation Angle:</label>
+      <input type="number" id="light1-rotate" min="0" max="359" value="0">
+    </div>
+    <br>
+    <div>
+    <label for="light2-intensity">Light 2 Intensity:</label>
+      <input type="range" id="light2-intensity" min="0" max="255" value="0">
+    </div>
+    <br>
+    <div>
+      <button id="light2-on">Light 2 On</button>
+      <button id="light2-off">Light 2 Off</button>
+      <label for="light2-rotate">Rotation Angle:</label>
+      <input type="number" id="light2-rotate" min="0" max="359" value="0">
+    </div>
+    <br>
+    <div>
+    <label for="light3-intensity">Light 3 Intensity:</label>
+      <input type="range" id="light3-intensity" min="0" max="255" value="0">
+    </div>
+    <br>
+    <div>
+      <button id="light3-on">Light 3 On</button>
+      <button id="light3-off">Light 3 Off</button>
+      <label for="light3-rotate">Rotation Angle:</label>
+      <input type="number" id="light3-rotate" min="0" max="359" value="0">
+    </div>
+    
+    <script>
+      // Initialize the DMX universe
+      const universe = new DMX();
+
+      // Define the DMX addresses for the lights
+      const light1Address = 1;
+      const light1Address = 2;
+      const light1Address = 3;
+
+      // Define the DMX values for the different light states
+      const lightOnValue = 255;
+      const lightOffValue = 0;
+
+      // Get a reference to the intensity sliders
+      const light1IntensitySlider = document.getElementById("light1-intensity");
+
+      const light2IntensitySlider = document.getElementById("light2-intensity");
+
+      const light3IntensitySlider = document.getElementById("light3-intensity");
+
+      // Define the light intensity change event handler
+      light1IntensitySlider.oninput = function() {
+        universe.update(light1Address, [light1IntensitySlider.value]);
+      };
+      light2IntensitySlider.oninput = function() {
+        universe.update(light2Address, [light2IntensitySlider.value]);
+      };
+      light3IntensitySlider.oninput = function() {
+        universe.update(light3Address, [light3IntensitySlider.value]);
+      };
+
+      // Define the button click event handlers
+      document.getElementById("light1-on").onclick = function() {
+        universe.update(light1Address, [lightOnValue]);
+      };
+
+      document.getElementById("light1-off").onclick = function() {
+        universe.update(light1Address, [lightOffValue]);
+      };
+
+      document.getElementById("light2-on").onclick = function() {
+        universe.update(light1Address, [lightOnValue]);
+      };
+
+      document.getElementById("light2-off").onclick = function() {
+        universe.update(light1Address, [lightOffValue]);
+      };
+
+      document.getElementById("light3-on").onclick = function() {
+        universe.update(light1Address, [lightOnValue]);
+      };
+
+      document.getElementById("light3-off").onclick = function() {
+        universe.update(light1Address, [lightOffValue]);
+      };
+
+      // Initialize the light rotation knobs
+      $('#light1-rotate').knob({
+        'min': 0,
+        'max': 359,
+        'angleOffset': -125,
+        'angleArc': 250,
+        'cursor': 30,
+        'change': function(value) {
+          universe.update(light1Address + 1, [value]);
+        }
+      });
+
+      $('#light2-rotate').knob({
+        'min': 0,
+        'max': 359,
+        'angleOffset': -125,
+        'angleArc': 250,
+        'cursor': 30,
+        'change': function(value) {
+          universe.update(light2Address + 1, [value]);
+        }
+      });
+
+      $('#light3-rotate').knob({
+        'min': 0,
+        'max': 359,
+        'angleOffset': -125,
+        'angleArc': 250,
+        'cursor': 30,
+        'change': function(value) {
+          universe.update(light3Address + 1, [value]);
+        }
+      });
+
+    </script>
+  </body>
+</html>
