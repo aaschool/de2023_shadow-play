@@ -4,7 +4,7 @@ const DMX = require('dmx');
 const dmx = new DMX();
 
 // Initialize the DMX connection
-const universe = dmx.addUniverse('myUniverse', 'enttec-usb-dmx-pro', 'Port_0003.Hub_#0002');
+const universe = dmx.addUniverse('myUniverse', 'enttec-usb-dmx-pro', 'Port_#0003.Hub_#0002');
 
 // Define fixtures and their channels
 const fixtures = {
