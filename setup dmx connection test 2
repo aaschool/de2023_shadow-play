@@ -1,0 +1,45 @@
+const DMX = require('dmx');
+const SerialPort = require('serialport');
+
+// Initialize a serial connection to the Enttec DMX USB Pro
+const port = new SerialPort('Port_#0003.Hub_#0002');
+
+// Initialize a DMX universe with the serial port
+const universe = new DMX({
+  driver: 'enttec-usb-dmx-pro',
+  device: port
+});
+
+// Setup the DMX addresses of the EldoLED drivers
+const eldoledColorAddress = 1;
+const eldoledIntensity1Address = 2;
+const eldoledIntensity2Address = 3;
+
+// Setup the color of the first fixture connected to the EldoLED driver
+const red = 255;
+const green = 0;
+const blue = 0;
+
+// Setup the intensities of the second and third fixtures connected to the EldoLED driver
+const intensity1 = 128;
+const intensity2 = 64;
+
+// Create DMX messages for each fixture
+const colorMessage = [
+  red,   // Channel 1 (Red)
+  green, // Channel 2 (Green)
+  blue   // Channel 3 (Blue)
+];
+
+const intensity1Message = [
+  intensity1 // Channel 1 (Intensity)
+];
+
+const intensity2Message = [
+  intensity2 // Channel 1 (Intensity)
+];
+
+// Send the DMX messages to the EldoLED drivers
+universe.update(eldoledColorAddress, colorMessage);
+universe.update(eldoledIntensity1Address, intensity1Message);
+universe.update(eldoledIntensity2Address, intensity2Message);
