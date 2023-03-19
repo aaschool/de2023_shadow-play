@@ -1,6 +1,3 @@
-npm install dmx-web
-npm install dmx
-
 const DMX = require('dmx');
 const SerialPort = require('serialport');
 
