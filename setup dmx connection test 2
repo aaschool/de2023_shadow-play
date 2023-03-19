@@ -1,3 +1,5 @@
+npm i dmx-node
+
 const DMX = require('dmx');
 const SerialPort = require('serialport');
 
